@@ -19,7 +19,6 @@ interface WeatherStackAPIService {
     @GET("current")
     fun getTodaysWeather(
         @Query("query") location: String,
-        //@Query("lang") langCode: String ="en"
     ): Deferred<CurrentWeatherResponse>  // coroutines and await the response
 
     companion object{

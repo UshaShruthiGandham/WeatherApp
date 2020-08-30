@@ -90,7 +90,7 @@ class CurrentFragment : ScopedFragment(),KodeinAware {
         conditionTv.text="$condition"
     }
     private fun updateWind(windDegree:Double,windDir:String){
-        windTV.text="Wind: $windDegree, $windDir MPH"
+        windTV.text="Wind: $windDir, $windDegree MPH"
     }
 
     private fun updatePrecipitation(precipitation:Double){

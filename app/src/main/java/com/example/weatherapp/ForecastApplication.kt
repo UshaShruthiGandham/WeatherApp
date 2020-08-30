@@ -1,6 +1,7 @@
 package com.example.weatherapp
 
 import android.app.Application
+import android.content.Context
 import com.example.weatherapp.data.db.ForecastDB
 import com.example.weatherapp.data.network.*
 import com.example.weatherapp.data.provider.LocationProvider
@@ -8,6 +9,7 @@ import com.example.weatherapp.data.provider.LocationProviderImpl
 import com.example.weatherapp.data.repo.ForecastRepo
 import com.example.weatherapp.data.repo.ForecastRepoImpl
 import com.example.weatherapp.ui.weather.current.CurrentViewModelFactory
+import com.google.android.gms.location.LocationServices
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -26,9 +28,11 @@ class ForecastApplication: Application(),KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance())}
         bind() from singleton { WeatherStackAPIService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance())}
-        bind<LocationProvider>() with singleton{LocationProviderImpl(/*instance()*/)}
+        bind() from  provider { LocationServices.getFusedLocationProviderClient(instance<Context>())}
+        bind<LocationProvider>() with singleton{LocationProviderImpl(instance(),instance())}
         bind<ForecastRepo>() with singleton { ForecastRepoImpl(instance(),instance(),instance(),instance())}
         bind() from  provider { CurrentViewModelFactory(instance())}
+
     }
 
     override fun onCreate() {
