@@ -13,6 +13,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.weatherapp.ui.LifeCycleBoundLocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity(),KodeinAware {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, null)
     }
-    private fun hasLocationPermissions(): Boolean {
+    internal fun hasLocationPermissions(): Boolean {
         return ContextCompat.checkSelfPermission(this,
             Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
@@ -81,10 +82,14 @@ class MainActivity : AppCompatActivity(),KodeinAware {
         grantResults: IntArray
     ) {
         if (requestCode == APP_PERMISSION_ACCESS_COARSE_LOCATION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                PreferenceManager.getDefaultSharedPreferences(applicationContext).edit().putBoolean(getString(R.string.Device_Location_key),true).apply()
                 bindLocationManager()
-            else
-                Toast.makeText(this, "Please, set location manually in settings", Toast.LENGTH_LONG).show()
+            }else {
+                PreferenceManager.getDefaultSharedPreferences(applicationContext).edit().putBoolean(getString(R.string.Device_Location_key),false).apply()
+                Toast.makeText(this, "Please, set location manually in settings", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 }

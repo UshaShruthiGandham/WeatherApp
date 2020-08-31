@@ -16,7 +16,7 @@ import com.example.weatherapp.data.db.entity.WeatherLocation
 @TypeConverters(Converters::class)
 abstract class ForecastDB :RoomDatabase(){
 
-    abstract fun WeatherLocationDao():WeatherLocationDao
+    abstract fun weatherLocationDao():WeatherLocationDao
 
     abstract fun currentWeatherDao():CurrentWeatherDao
     companion object{ // since db has to be singleton

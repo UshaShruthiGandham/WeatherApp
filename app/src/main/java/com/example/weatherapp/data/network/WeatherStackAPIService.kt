@@ -17,7 +17,7 @@ const val API_KEY ="f1de759e60e1ce8dbf318898fbb1ff78"
 interface WeatherStackAPIService {
 
     @GET("current")
-    fun getTodaysWeather(
+    fun getTodaysWeatherAsync(
         @Query("query") location: String,
     ): Deferred<CurrentWeatherResponse>  // coroutines and await the response
 

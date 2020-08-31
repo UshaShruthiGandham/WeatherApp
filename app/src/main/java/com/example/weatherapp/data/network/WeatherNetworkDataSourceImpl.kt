@@ -17,7 +17,7 @@ class WeatherNetworkDataSourceImpl (
 
         try {
             val fetchCurrent= apiService
-                .getTodaysWeather(location)
+                .getTodaysWeatherAsync(location)
                 .await()
             downloadedCurrentDataMutable.postValue(fetchCurrent)
 

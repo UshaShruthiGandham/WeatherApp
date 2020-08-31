@@ -24,7 +24,7 @@ class ForecastApplication: Application(),KodeinAware {
         import(androidXModule(this@ForecastApplication))
         bind() from singleton { ForecastDB(instance()) }
         bind() from singleton { instance<ForecastDB>().currentWeatherDao()}
-        bind() from singleton { instance<ForecastDB>().WeatherLocationDao()}
+        bind() from singleton { instance<ForecastDB>().weatherLocationDao()}
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImpl(instance())}
         bind() from singleton { WeatherStackAPIService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance())}
